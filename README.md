@@ -1,14 +1,24 @@
-# OpsPilot
+# README
 
-AI Executive Copilot for Google Workspace.
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-## Stack
-- Ruby 3.4 + Rails 8
-- PostgreSQL
-- Sidekiq + Redis
-- Hotwire (Turbo + Stimulus)
+Things you may want to cover:
 
-## Docs
-- docs/PRD.md
-- docs/PROJECT_SUMMARY.md
-- docs/PROJECT_STATUS.md
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

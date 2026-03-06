@@ -1,0 +1,39 @@
+# Bundler
+/.bundle
+/vendor/bundle
+
+# Credentials
+/config/master.key
+
+# Environment files
+.env*
+!.env.example
+
+# Logs and temp files
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Storage
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/.keep
+
+# PID files
+/tmp/pids/*.pid
+
+# Node / JS artifacts
+node_modules/
+
+# OS files
+.DS_Store
+
+# Vercel local metadata
+.vercel/
+
+# Kamal local secrets
+.kamal/secrets

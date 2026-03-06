@@ -8,8 +8,8 @@
 ## Active Tasks
 
 ### Task 1 — Foundation Setup
-- [ ] Create Rails 8 app skeleton
-- [ ] Configure Postgres, Redis, Sidekiq
+- [x] Create Rails 8 app skeleton
+- [x] Configure Postgres, Redis, Sidekiq
 - [ ] Setup environments + secrets strategy
 - [ ] Add CI checks (lint/test)
 
