@@ -1,15 +1,18 @@
 # PROJECT_STATUS — OpsPilot
 
+_Last updated: 2026-03-07 08:47 JST_
+
 ## Overall Status
-- Phase: Planning → Foundation Build
+- Phase: Foundation Build → Auth Build
 - Confidence: High
-- Risk: Medium (OAuth + workflow orchestration)
+- Risk: Medium (OAuth wiring + external integrations)
 
 ## Active Tasks
 
 ### Task 1 — Foundation Setup
 - [x] Create Rails 8 app skeleton
 - [x] Configure Postgres, Redis, Sidekiq
+- [x] Mount Sidekiq dashboard at `/sidekiq`
 - [ ] Setup environments + secrets strategy
 - [ ] Add CI checks (lint/test)
 
@@ -25,9 +28,14 @@
 ---
 
 ### Task 2 — Auth + Workspace Connection
-- [ ] Add user auth and session management
-- [ ] Implement Google OAuth connect/disconnect
-- [ ] Persist account/token metadata securely
+- [x] Add Devise-based user auth scaffolding (email/password + sessions)
+- [x] Add Google OAuth callback route/controller wiring
+- [x] Add connect/disconnect UX in settings page
+- [x] Add `OAuthConnection` model/migration for provider token metadata
+- [x] Run DB migrations
+- [ ] Run full auth smoke test
+- [ ] Add integration tests for Google connect/reconnect/disconnect
+- [ ] Persist token data with encryption-at-rest strategy
 
 **Test criteria**
 - New user can sign in/out
@@ -80,9 +88,13 @@
 **Exit criteria**
 - Daily brief visible in dashboard and shareable
 
-## Blockers
-- None right now.
+## Current Blockers / Required Resources
+1. Need Google OAuth app creds for end-to-end login/connect testing:
+   - `GOOGLE_CLIENT_ID`
+   - `GOOGLE_CLIENT_SECRET`
+   - Redirect URI: `http://localhost:3000/users/auth/google_oauth2/callback`
 
 ## Notes
 - Human approval mode remains default in MVP.
 - No direct work on `main` branch.
+- Central command chat acknowledged. Progress updates mirrored to Agent Repo-OpsPilot channel (`-1003793941840`).

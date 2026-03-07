@@ -2,6 +2,18 @@
   <header class="hero">
     <h1>OpsPilot Dashboard</h1>
     <p>AI Executive Copilot for Google Workspace</p>
+
+    <div style="margin-top: 1rem; display:flex; gap: .75rem; flex-wrap: wrap;">
+      <% if user_signed_in? %>
+        <span>Signed in as <strong><%= current_user.email %></strong></span>
+        <%= link_to "Settings", settings_path %>
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to "Sign in", new_user_session_path %>
+        <%= link_to "Create account", new_user_registration_path %>
+        <%= button_to "Continue with Google", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false } %>
+      <% end %>
+    </div>
   </header>
 
   <section class="grid">

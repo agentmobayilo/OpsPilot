@@ -1,24 +1,24 @@
-# README
+# OpsPilot
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+AI Executive Copilot for Google Workspace.
 
-Things you may want to cover:
+## Current stack
+- Rails 8.1
+- PostgreSQL
+- Redis + Sidekiq
+- Devise auth
+- Google OAuth (connect/disconnect flow)
 
-* Ruby version
+## Quick start
 
-* System dependencies
+```bash
+bundle install
+bin/rails db:create db:migrate
+bin/dev
+```
 
-* Configuration
+App runs at `http://localhost:3000`.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Docs
+- Project status: `docs/PROJECT_STATUS.md`
+- Local setup + OAuth config: `docs/SETUP.md`

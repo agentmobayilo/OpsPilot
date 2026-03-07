@@ -1,0 +1,20 @@
+<main class="container">
+  <h1>Settings</h1>
+  <p>Manage your connected workspace accounts.</p>
+
+  <% google = current_user.oauth_connection(:google_oauth2) %>
+
+  <section class="card" style="padding: 1rem; max-width: 560px;">
+    <h2>Google Workspace</h2>
+
+    <% if google.present? %>
+      <p><strong>Connected</strong> as <%= google.email.presence || current_user.email %></p>
+      <%= button_to "Disconnect Google", oauth_connection_path(provider: :google_oauth2), method: :delete, data: { turbo_confirm: "Disconnect Google account?" } %>
+    <% else %>
+      <p>Not connected.</p>
+      <%= button_to "Connect Google", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false } %>
+    <% end %>
+  </section>
+
+  <p style="margin-top: 1rem;"><%= link_to "Back to dashboard", root_path %></p>
+</main>
