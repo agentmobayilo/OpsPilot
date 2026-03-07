@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
   get "settings", to: "home#settings"
-  delete "oauth_connections/:provider", to: "oauth_connections#destroy", as: :oauth_connection
+  patch "settings", to: "home#update_preferences"
+
+  patch "oauth_connections/:id/activate", to: "oauth_connections#activate", as: :activate_oauth_connection
+  delete "oauth_connections/:id", to: "oauth_connections#destroy", as: :oauth_connection
 
   root "home#index"
 end

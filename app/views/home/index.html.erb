@@ -1,17 +1,27 @@
 <main class="container">
-  <header class="hero">
-    <h1>OpsPilot Dashboard</h1>
-    <p>AI Executive Copilot for Google Workspace</p>
+  <header class="hero card-shell">
+    <div>
+      <h1>OpsPilot Dashboard</h1>
+      <p>AI Executive Copilot for Google Workspace</p>
+      <% if user_signed_in? %>
+        <% active_google = current_user.active_oauth_connection(:google_oauth2) %>
+        <% if active_google.present? %>
+          <p class="muted">Active workspace: <strong><%= active_google.email %></strong></p>
+        <% else %>
+          <p class="muted">No Google workspace connected yet.</p>
+        <% end %>
+      <% end %>
+    </div>
 
-    <div style="margin-top: 1rem; display:flex; gap: .75rem; flex-wrap: wrap;">
+    <div style="margin-top: .9rem; display:flex; gap: .6rem; flex-wrap: wrap; align-items:center;">
       <% if user_signed_in? %>
         <span>Signed in as <strong><%= current_user.email %></strong></span>
-        <%= link_to "Settings", settings_path %>
-        <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+        <%= link_to "Settings", settings_path, class: "btn btn-soft" %>
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn" %>
       <% else %>
-        <%= link_to "Sign in", new_user_session_path %>
-        <%= link_to "Create account", new_user_registration_path %>
-        <%= button_to "Continue with Google", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false } %>
+        <%= link_to "Sign in", new_user_session_path, class: "btn btn-soft" %>
+        <%= link_to "Create account", new_user_registration_path, class: "btn btn-soft" %>
+        <%= button_to "Continue with Google", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "btn" %>
       <% end %>
     </div>
   </header>
@@ -20,10 +30,10 @@
     <article class="card">
       <h2>Today</h2>
       <ul>
-        <li>Inbox Actions</li>
-        <li>Leads Detected</li>
-        <li>Pending Follow-ups</li>
-        <li>Meetings</li>
+        <li><strong>3 urgent</strong> emails need response</li>
+        <li>4 leads detected</li>
+        <li>2 pending follow-ups</li>
+        <li>3 meetings today</li>
       </ul>
     </article>
 

@@ -1,6 +1,6 @@
 # PROJECT_STATUS — OpsPilot
 
-_Last updated: 2026-03-07 08:47 JST_
+_Last updated: 2026-03-07 09:58 JST_
 
 ## Overall Status
 - Phase: Foundation Build → Auth Build
@@ -32,10 +32,11 @@ _Last updated: 2026-03-07 08:47 JST_
 - [x] Add Google OAuth callback route/controller wiring
 - [x] Add connect/disconnect UX in settings page
 - [x] Add `OAuthConnection` model/migration for provider token metadata
+- [x] Support multiple Google accounts per user + active account switching
 - [x] Run DB migrations
-- [ ] Run full auth smoke test
+- [x] Persist token data with encryption-at-rest strategy
+- [ ] Run full auth smoke test (including signed-in connect flow)
 - [ ] Add integration tests for Google connect/reconnect/disconnect
-- [ ] Persist token data with encryption-at-rest strategy
 
 **Test criteria**
 - New user can sign in/out
@@ -44,6 +45,14 @@ _Last updated: 2026-03-07 08:47 JST_
 
 **Exit criteria**
 - Connected workspace visible in settings
+
+---
+
+### UI Stream — Dashboard Experience
+- [x] Shifted UI from dark-heavy to light, airy style
+- [x] Added customizable dashboard background image (per user preference)
+- [x] Added account-aware dashboard header (active workspace visibility)
+- [ ] Finish full design fidelity pass to provided references
 
 ---
 

@@ -3,18 +3,26 @@
  */
 
 :root {
-  --bg: #f8fafc;
-  --text: #0f172a;
-  --muted: #475569;
+  --bg: #f4f7fb;
+  --text: #122034;
+  --muted: #5d6b82;
   --card: #ffffff;
-  --border: #e2e8f0;
+  --border: #dbe4f0;
+  --primary: #4f7cff;
 }
 
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background: var(--bg);
+  background: radial-gradient(circle at top right, #eef4ff 0%, #f7faff 38%, var(--bg) 100%);
   color: var(--text);
+}
+
+body.with-bg {
+  background-image: linear-gradient(180deg, rgba(247, 250, 255, .74), rgba(244, 247, 251, .88)), var(--dashboard-bg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .container {
@@ -28,9 +36,17 @@ body {
   font-size: 2rem;
 }
 
-.hero p {
+.hero p, .muted {
   margin-top: .4rem;
   color: var(--muted);
+}
+
+.card-shell {
+  background: rgba(255, 255, 255, .72);
+  backdrop-filter: blur(6px);
+  border-radius: 18px;
+  padding: 1.1rem;
+  border: 1px solid rgba(219, 228, 240, .9);
 }
 
 .grid {
@@ -45,7 +61,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 10px 20px rgba(23, 40, 70, 0.05);
 }
 
 .card h2 {
@@ -57,4 +73,53 @@ body {
   margin: 0;
   padding-left: 1.1rem;
   color: var(--muted);
+}
+
+.btn, button, input[type="submit"] {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  padding: .5rem .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-soft {
+  background: #edf3ff;
+  border-color: #c8d7ff;
+  color: #2450c4;
+}
+
+.notice, .alert {
+  max-width: 1100px;
+  margin: .8rem auto 0;
+  padding: .55rem .75rem;
+  border-radius: 10px;
+  font-size: .95rem;
+}
+
+.notice {
+  background: #ebf9ef;
+  color: #1a6f36;
+  border: 1px solid #c8ebd2;
+}
+
+.alert {
+  background: #fff1f2;
+  color: #9f1239;
+  border: 1px solid #fecdd3;
+}
+
+.pill {
+  display: inline-block;
+  margin-top: .2rem;
+  font-size: .78rem;
+  color: #2258d6;
+  background: #e8efff;
+  border: 1px solid #c8d7ff;
+  padding: .12rem .45rem;
+  border-radius: 999px;
 }

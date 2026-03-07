@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_06_232409) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_07_005346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "oauth_connections", force: :cascade do |t|
     t.text "access_token"
+    t.boolean "active", default: false, null: false
     t.datetime "created_at", null: false
     t.string "email"
     t.datetime "expires_at"
@@ -28,11 +29,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_06_232409) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["provider", "uid"], name: "index_oauth_connections_on_provider_and_uid", unique: true
+    t.index ["user_id", "provider", "active"], name: "index_oauth_connections_on_user_id_and_provider_and_active"
     t.index ["user_id", "provider"], name: "index_oauth_connections_on_user_id_and_provider", unique: true
     t.index ["user_id"], name: "index_oauth_connections_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "background_image_url"
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

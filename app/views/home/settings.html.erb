@@ -1,18 +1,51 @@
 <main class="container">
   <h1>Settings</h1>
-  <p>Manage your connected workspace accounts.</p>
+  <p>Manage your connected workspace accounts and UI style.</p>
 
-  <% google = current_user.oauth_connection(:google_oauth2) %>
+  <section class="card" style="padding: 1rem; margin-bottom: 1rem;">
+    <h2>Google Workspace Accounts</h2>
 
-  <section class="card" style="padding: 1rem; max-width: 560px;">
-    <h2>Google Workspace</h2>
+    <% google_accounts = current_user.oauth_connections.where(provider: :google_oauth2).order(updated_at: :desc) %>
 
-    <% if google.present? %>
-      <p><strong>Connected</strong> as <%= google.email.presence || current_user.email %></p>
-      <%= button_to "Disconnect Google", oauth_connection_path(provider: :google_oauth2), method: :delete, data: { turbo_confirm: "Disconnect Google account?" } %>
+    <% if google_accounts.any? %>
+      <div style="display:grid; gap:.75rem;">
+        <% google_accounts.each do |account| %>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:.75rem; border:1px solid var(--border); border-radius:12px; padding:.75rem;">
+            <div>
+              <div><strong><%= account.name.presence || account.email || "Google account" %></strong></div>
+              <div style="color:var(--muted); font-size:.9rem;"><%= account.email %></div>
+              <% if account.active? %><span class="pill">Active</span><% end %>
+            </div>
+            <div style="display:flex; gap:.5rem;">
+              <% unless account.active? %>
+                <%= button_to "Switch", activate_oauth_connection_path(account), method: :patch %>
+              <% end %>
+              <%= button_to "Disconnect", oauth_connection_path(account), method: :delete, data: { turbo_confirm: "Disconnect this Google account?" } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     <% else %>
       <p>Not connected.</p>
-      <%= button_to "Connect Google", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false } %>
+    <% end %>
+
+    <div style="margin-top: .9rem;">
+      <%= button_to "Connect another Google account", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false } %>
+    </div>
+  </section>
+
+  <section class="card" style="padding: 1rem; max-width: 680px;">
+    <h2>Dashboard background</h2>
+    <p style="color:var(--muted);">Paste an image URL to personalize your dashboard background.</p>
+
+    <%= form_with url: settings_path, method: :patch do |f| %>
+      <div style="display:grid; gap:.6rem;">
+        <%= f.text_field :background_image_url, name: "user[background_image_url]", value: current_user.background_image_url, placeholder: "https://...", style: "padding:.6rem .7rem; border:1px solid var(--border); border-radius:10px;" %>
+        <div style="display:flex; gap:.5rem;">
+          <%= f.submit "Save background" %>
+          <%= button_to "Reset", settings_path(user: { background_image_url: "" }), method: :patch %>
+        </div>
+      </div>
     <% end %>
   </section>
 
