@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_09_014000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_09_014001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -68,8 +68,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_09_014000) do
   end
 
   create_table "email_threads", force: :cascade do |t|
+    t.boolean "action_completed"
+    t.string "action_description"
     t.string "classification"
     t.datetime "created_at", null: false
+    t.text "draft_reply"
     t.string "google_id"
     t.string "history_id"
     t.bigint "oauth_connection_id", null: false

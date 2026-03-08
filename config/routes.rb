@@ -4,6 +4,15 @@ Rails.application.routes.draw do
   mount_avo
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
+  namespace :api do
+    resources :email_threads, only: [] do
+      member do
+        patch :approve_draft
+        patch :complete_action
+      end
+    end
+  end
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   get "up" => "rails/health#show", as: :rails_health_check
 
