@@ -5,6 +5,7 @@ class HomeController < ApplicationController
     if user_signed_in? && current_user.active_oauth_connection(:google_oauth2).present?
       @active_connection = current_user.active_oauth_connection(:google_oauth2)
       @email_threads = @active_connection.email_threads.order(created_at: :desc).limit(50)
+      @daily_brief = DailyBriefGenerator.new(current_user).generate
     end
   end
 

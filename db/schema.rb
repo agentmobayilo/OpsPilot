@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_08_153843) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_09_014000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_153843) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "crm_deals", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.date "close_date"
+    t.datetime "created_at", null: false
+    t.string "status"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_crm_deals_on_user_id"
   end
 
   create_table "email_messages", force: :cascade do |t|
@@ -105,6 +116,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_153843) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "crm_deals", "users"
   add_foreign_key "email_messages", "email_threads"
   add_foreign_key "email_threads", "oauth_connections"
   add_foreign_key "oauth_connections", "users"

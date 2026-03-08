@@ -4,6 +4,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_many :oauth_connections, class_name: "OAuthConnection", dependent: :destroy
+  has_many :crm_deals, dependent: :destroy
   has_one_attached :background_image
 
   def active_oauth_connection(provider = :google_oauth2)

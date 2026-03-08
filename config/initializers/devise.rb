@@ -274,8 +274,11 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  require "dotenv"
-  Dotenv.load(".env")
+  begin
+    require "dotenv"
+    Dotenv.load(".env")
+  rescue LoadError, Errno::EPERM
+  end
 
   google_client_id = ENV.fetch("GOOGLE_CLIENT_ID", nil)
   google_client_secret = ENV.fetch("GOOGLE_CLIENT_SECRET", nil)

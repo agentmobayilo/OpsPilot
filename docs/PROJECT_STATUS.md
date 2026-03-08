@@ -87,8 +87,8 @@ _Last updated: 2026-03-07 09:58 JST_
 ---
 
 ### Task 5 — CRM Sync + Daily Brief
-- [ ] Upsert leads/opportunities into Google Sheets
-- [ ] Generate daily executive briefing
+- [x] Upsert leads/opportunities into Google Sheets
+- [x] Generate daily executive briefing
 
 **Test criteria**
 - Lead rows appear/update in sheet

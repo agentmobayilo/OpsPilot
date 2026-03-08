@@ -177,7 +177,7 @@
 
     <div class="dash-header">
       <h1>Good afternoon</h1>
-      <p>Here's your afternoon overview. You have <span class="urgent-text"><%= urgent_threads.count %> urgent items</span>, <%= action_threads.count %> actions pending, and 4 meetings.</p>
+      <p>Here's your afternoon overview. You have <span class="urgent-text"><%= @daily_brief[:urgent_emails].count %> urgent items</span>, <%= action_threads.count %> actions pending, and <%= @daily_brief[:pending_deals].count %> active deals.</p>
     </div>
 
     <!-- URGENT CARD -->
@@ -187,7 +187,7 @@
         Urgent
       </h2>
       <ul class="item-list">
-        <% urgent_threads.each do |thread| %>
+        <% @daily_brief[:urgent_emails].each do |thread| %>
           <li class="item-row">
             <div class="item-icon mail">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -201,7 +201,7 @@
             </div>
           </li>
         <% end %>
-        <% if urgent_threads.empty? %>
+        <% if @daily_brief[:urgent_emails].empty? %>
           <p style="color: #6b7280; font-size: 0.9rem;">No urgent items right now.</p>
         <% end %>
       </ul>
@@ -225,6 +225,31 @@
         <% end %>
         <% if action_threads.empty? %>
           <p style="color: #6b7280; font-size: 0.9rem;">No pending actions right now.</p>
+        <% end %>
+      </ul>
+    </article>
+
+    <!-- DEALS CARD -->
+    <article class="dash-card">
+      <h2 class="card-title">
+        <svg class="card-icon" style="color: #10b981;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+        Pending Deals
+      </h2>
+      <ul class="item-list">
+        <% @daily_brief[:pending_deals].each do |deal| %>
+          <li class="item-row">
+            <div class="item-icon dot" style="color: #10b981;">•</div>
+            <div class="item-content">
+              <div class="item-title"><%= deal.title %></div>
+              <div class="item-desc"><%= number_to_currency(deal.amount) %> — <%= deal.status %></div>
+            </div>
+            <div class="item-meta">
+              Closing <%= time_ago_in_words(deal.close_date) %>
+            </div>
+          </li>
+        <% end %>
+        <% if @daily_brief[:pending_deals].empty? %>
+          <p style="color: #6b7280; font-size: 0.9rem;">No active deals require attention right now.</p>
         <% end %>
       </ul>
     </article>

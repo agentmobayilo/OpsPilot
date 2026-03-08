@@ -88,18 +88,7 @@ Avo.configure do |config|
   # end
 
   ## == Logger ==
-  # config.logger = -> {
-  #   file_logger = ActiveSupport::Logger.new(Rails.root.join("log", "avo.log"))
-  #
-  #   file_logger.datetime_format = "%Y-%m-%d %H:%M:%S"
-  #   file_logger.formatter = proc do |severity, time, progname, msg|
-  #     "[Avo] #{time}: #{msg}\n".tap do |i|
-  #       puts i
-  #     end
-  #   end
-  #
-  #   file_logger
-  # }
+  config.logger = ActiveSupport::Logger.new(STDOUT)
 
   ## == Customization ==
   config.click_row_to_view_record = true
