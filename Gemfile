@@ -30,6 +30,7 @@ gem "omniauth"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-google-oauth2"
 gem "google-apis-gmail_v1"
+gem "ruby-openai"
 gem "pay"
 gem "stripe"
 

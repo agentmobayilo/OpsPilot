@@ -45,29 +45,29 @@ class AiEmailProcessor
     PROMPT
 
     begin
-      # MOCK OPENAI RESPONSE
-      # Due to sandbox gem installation limits, we simulate the GPT-4o-Mini response locally.
-      simulated_classification = 
-        if email_thread.subject.downcase.include?("urgent") || conversation_history.downcase.include?("asap")
-          "urgent"
-        elsif email_thread.subject.downcase.include?("demo") || conversation_history.downcase.include?("pricing")
-          "lead"
-        else
-          "reply"
-        end
-        
-      simulated_draft = "Hi there,\n\nThanks for reaching out! I have received your message and will review this shortly. Let me know if you need anything else in the meantime.\n\nBest,\nOpsPilot AI"
-      simulated_action = "Review thread and follow up"
-
-      # Simulate network delay
-      sleep 1
-
-      email_thread.update!(
-        classification: simulated_classification,
-        draft_reply: simulated_draft,
-        action_description: simulated_action,
-        status: "classified" 
+      response = @client.chat(
+        parameters: {
+          model: "gpt-4o-mini", # Fast, cheap, and very capable for this
+          messages: [{ role: "user", content: prompt }],
+          temperature: 0.1,
+          response_format: { type: "json_object" }
+        }
       )
+
+      result_json = response.dig("choices", 0, "message", "content")
+      
+      if result_json
+        parsed = JSON.parse(result_json)
+        
+        email_thread.update!(
+          classification: parsed["classification"] || "general",
+          draft_reply: parsed["draft_reply"],
+          action_description: parsed["action_description"],
+          status: "classified" # Move from pending to classified
+        )
+      else
+        Rails.logger.error "OpenAI returned an empty response for EmailThread #{email_thread.id}"
+      end
       
     rescue => e
       Rails.logger.error "AiEmailProcessor Error for EmailThread #{email_thread.id}: #{e.message}"
