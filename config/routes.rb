@@ -1,6 +1,7 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
+  mount_avo
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
 
   patch "oauth_connections/:id/activate", to: "oauth_connections#activate", as: :activate_oauth_connection
   delete "oauth_connections/:id", to: "oauth_connections#destroy", as: :oauth_connection
+
+  post "sync_inbox", to: "home#sync_inbox"
 
   root "home#index"
 end

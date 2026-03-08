@@ -27,7 +27,9 @@ gem "redis", ">= 5.0"
 
 # Auth and integrations (MVP)
 gem "omniauth"
+gem "omniauth-rails_csrf_protection"
 gem "omniauth-google-oauth2"
+gem "google-apis-gmail_v1"
 gem "pay"
 gem "stripe"
 
@@ -47,6 +49,9 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+
   # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
   gem "bundler-audit", require: false
 
@@ -55,11 +60,15 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "shoulda-matchers", "~> 6.0"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "dotenv-rails"
 end
 
 gem "devise", "~> 5.0"
+gem "avo"

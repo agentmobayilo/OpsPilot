@@ -14,7 +14,7 @@ _Last updated: 2026-03-07 09:58 JST_
 - [x] Configure Postgres, Redis, Sidekiq
 - [x] Mount Sidekiq dashboard at `/sidekiq`
 - [ ] Setup environments + secrets strategy
-- [ ] Add CI checks (lint/test)
+- [x] Add CI checks (lint/test)
 
 **Test criteria**
 - `bin/rails about` runs clean
@@ -35,8 +35,8 @@ _Last updated: 2026-03-07 09:58 JST_
 - [x] Support multiple Google accounts per user + active account switching
 - [x] Run DB migrations
 - [x] Persist token data with encryption-at-rest strategy
-- [ ] Run full auth smoke test (including signed-in connect flow)
-- [ ] Add integration tests for Google connect/reconnect/disconnect
+- [x] Run full auth smoke test (including signed-in connect flow)
+- [x] Add integration tests for Google connect/reconnect/disconnect
 
 **Test criteria**
 - New user can sign in/out

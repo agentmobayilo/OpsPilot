@@ -4,6 +4,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_many :oauth_connections, class_name: "OAuthConnection", dependent: :destroy
+  has_one_attached :background_image
 
   def active_oauth_connection(provider = :google_oauth2)
     scoped = oauth_connections.where(provider: provider.to_s)
@@ -22,6 +23,8 @@ class User < ApplicationRecord
     connection.scopes = auth.credentials&.scope
     connection.active = true
     connection.save!
+
+    GmailSyncJob.perform_later(connection.id)
 
     oauth_connections.where(provider: auth.provider).where.not(id: connection.id).update_all(active: false)
     connection

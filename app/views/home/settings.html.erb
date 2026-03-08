@@ -36,14 +36,14 @@
 
   <section class="card" style="padding: 1rem; max-width: 680px;">
     <h2>Dashboard background</h2>
-    <p style="color:var(--muted);">Paste an image URL to personalize your dashboard background.</p>
+    <p style="color:var(--muted);">Select a local image to personalize your dashboard background.</p>
 
-    <%= form_with url: settings_path, method: :patch do |f| %>
+    <%= form_with model: current_user, url: settings_path, method: :patch, multipart: true do |f| %>
       <div style="display:grid; gap:.6rem;">
-        <%= f.text_field :background_image_url, name: "user[background_image_url]", value: current_user.background_image_url, placeholder: "https://...", style: "padding:.6rem .7rem; border:1px solid var(--border); border-radius:10px;" %>
+        <%= f.file_field :background_image, accept: "image/*", style: "padding:.6rem .7rem; border:1px solid var(--border); border-radius:10px; background: var(--bg);" %>
         <div style="display:flex; gap:.5rem;">
           <%= f.submit "Save background" %>
-          <%= button_to "Reset", settings_path(user: { background_image_url: "" }), method: :patch %>
+          <%= button_to "Reset", settings_path(remove_background: true), method: :patch, class: "btn btn-soft" %>
         </div>
       </div>
     <% end %>

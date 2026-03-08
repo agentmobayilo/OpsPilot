@@ -4,7 +4,7 @@ class OauthConnectionsController < ApplicationController
 
   def activate
     current_user.activate_oauth_connection!(@connection)
-    redirect_to settings_path, notice: "Switched active Google account."
+    redirect_back fallback_location: root_path, notice: "Switched active Google account."
   end
 
   def destroy

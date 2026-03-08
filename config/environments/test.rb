@@ -41,6 +41,15 @@ Rails.application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+  config.active_support.disallowed_deprecation = :raise
+  config.active_support.disallowed_deprecation_warnings = []
+
+  config.active_record.encryption.primary_key = "test_primary_key_1234567890123456789"
+  config.active_record.encryption.deterministic_key = "test_deterministic_key_12345678901"
+  config.active_record.encryption.key_derivation_salt = "test_salt_1234567890123456789012345"
+
+  config.action_mailer.show_previews = true
+
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
