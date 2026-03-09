@@ -22,7 +22,7 @@ module OpsPilot
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.1
-    
+
     # Bypass local_secret.txt fallback for secret_key_base caching
     config.secret_key_base = "1234567890123456789012345678901212345678901234567890123456789012"
 

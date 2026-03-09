@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "OAuthConnections", type: :request do
   let(:user) { User.create!(email: 'user@example.com', password: 'password123') }
-  
+
   before do
     sign_in user
   end

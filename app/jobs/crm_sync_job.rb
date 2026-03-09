@@ -9,7 +9,7 @@ class CrmSyncJob < ApplicationJob
     # we are simulating a CRM sync by generating realistic mock deals.
     # In a full production environment, this would use Net::HTTP to fetch a CSV export
     # from a user's connected Google Sheet, or the Google Sheets API directly.
-    
+
     mock_deals = [
       { title: "Acme Corp Enterprise License", status: "Negotiation", amount: 15000.00, close_date: 2.days.from_now.to_date },
       { title: "Globex Initial Pilot", status: "Closed Won", amount: 3500.00, close_date: 1.day.ago.to_date },
@@ -22,7 +22,7 @@ class CrmSyncJob < ApplicationJob
       deal = user.crm_deals.find_or_initialize_by(title: deal_data[:title])
       deal.update!(deal_data)
     end
-    
+
     Rails.logger.info "CRM Sync completed for user #{user.email}. #{mock_deals.size} deals evaluated."
   end
 end

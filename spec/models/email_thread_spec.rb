@@ -8,7 +8,7 @@ RSpec.describe EmailThread, type: :model do
 
   describe "validations" do
     subject { create(:email_thread) }
-    
+
     it "requires a google_id" do
       thread = EmailThread.new(google_id: nil)
       thread.valid?

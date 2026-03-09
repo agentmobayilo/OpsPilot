@@ -21,7 +21,7 @@ class DailyBriefGenerator
     return [] unless connection
 
     connection.email_threads
-              .where(classification: ["urgent", "reply"])
+              .where(classification: [ "urgent", "reply" ])
               .where("updated_at >= ?", 24.hours.ago)
               .order(updated_at: :desc)
               .limit(5)
@@ -29,7 +29,7 @@ class DailyBriefGenerator
 
   def pending_deals
     # Fetch active deals that need attention
-    @user.crm_deals.where(status: ["Negotiation", "Proposal"])
+    @user.crm_deals.where(status: [ "Negotiation", "Proposal" ])
          .order(close_date: :asc)
          .limit(3)
   end

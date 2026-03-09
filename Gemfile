@@ -73,4 +73,3 @@ end
 
 gem "devise", "~> 5.0"
 gem "avo"
-

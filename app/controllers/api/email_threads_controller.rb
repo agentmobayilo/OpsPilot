@@ -29,7 +29,7 @@ module Api
         from    connection.email
         subject "Re: #{@email_thread.subject}"
         body    @email_thread.draft_reply
-        
+
         # Proper threading headers
         headers "In-Reply-To" => latest_message&.google_id,
                 "References" => latest_message&.google_id
@@ -37,15 +37,15 @@ module Api
 
       # 5. Send via Google API
       msg = Google::Apis::GmailV1::Message.new(raw: message.to_s)
-      
+
       begin
-        service.send_user_message('me', msg, thread_id: @email_thread.google_id)
-        
+        service.send_user_message("me", msg, thread_id: @email_thread.google_id)
+
         @email_thread.update!(
           status: "archived", # Move out of action list
           draft_reply: nil # Clear draft since it's sent
         )
-        
+
         render json: { success: true }
       rescue => e
         Rails.logger.error "Failed to send email: #{e.message}"
@@ -70,15 +70,15 @@ module Api
 
     def fetch_service(oauth_connection)
       service = Google::Apis::GmailV1::GmailService.new
-      service.client_options.application_name = 'OpsPilot'
+      service.client_options.application_name = "OpsPilot"
       service.authorization = Signet::OAuth2::Client.new(
         access_token: oauth_connection.access_token,
         refresh_token: oauth_connection.refresh_token,
         client_id: ENV.fetch("GOOGLE_CLIENT_ID", nil),
         client_secret: ENV.fetch("GOOGLE_CLIENT_SECRET", nil),
-        token_credential_uri: 'https://oauth2.googleapis.com/token'
+        token_credential_uri: "https://oauth2.googleapis.com/token"
       )
-      
+
       if oauth_connection.expires_at.nil? || oauth_connection.expires_at < 5.minutes.from_now
         service.authorization.fetch_access_token!
         oauth_connection.update!(
@@ -86,7 +86,7 @@ module Api
           expires_at: Time.current + service.authorization.expires_in.seconds
         )
       end
-  
+
       service
     end
   end
