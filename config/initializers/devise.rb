@@ -282,6 +282,8 @@ Devise.setup do |config|
 
   google_client_id = ENV.fetch("GOOGLE_CLIENT_ID", nil)
   google_client_secret = ENV.fetch("GOOGLE_CLIENT_SECRET", nil)
+  
+  config.omniauth_path_prefix = '/users/auth'
 
   if google_client_id.present? && google_client_secret.present?
     config.omniauth :google_oauth2,
